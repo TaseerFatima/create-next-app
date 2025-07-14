@@ -13,7 +13,6 @@ function updateTotal() {
     const count = Number(document.getElementById(`count${i}`).textContent);
     const itemTotal = price * count;
 
-
     document.getElementById(`total${i}`).textContent = `PKR ${itemTotal}`;
     grandTotal += itemTotal;
 
@@ -36,6 +35,8 @@ function updateTotal() {
   document.getElementById("grandTotal").textContent = `PKR ${grandTotal}`;
   document.getElementById("cartGrandTotal").textContent = `PKR ${grandTotal}`;
   document.getElementById("cartCount").textContent = cartCount;
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  localStorage.setItem("cartCount", cartCount);
 }
 
 function updateStatusMessage(statuselm, count) {
@@ -58,6 +59,10 @@ for (let i = 1; i <= totalCards; i++) {
   const statusText = document.getElementById(`msg${i}`);
 
   IncreaseButton.addEventListener("click", () => {
+      if (!localStorage.getItem("currentUser")) {
+    alert("Please login to add items to cart.");
+    return;
+  }
     let count = parseInt(counts.textContent);
     count++;
     counts.textContent = count;
@@ -105,8 +110,16 @@ const loginBtn = document.getElementById("loginBtn");
 const signupBtn = document.getElementById("signupBtn");
 const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
+const logoutBtn = document.getElementById('logoutBtn');
+// const welcomeText = document.getElementById('welcomeText')
 const closeButtons = document.querySelectorAll(".close");
+const profileicon = document.getElementById("profileIcon")
+const profileDropdown = document.getElementById("profileDropdown");
+const userFullName = document.getElementById("userFullName");
+const useremail = document.getElementById("useremail");
+const profile = document.getElementById("profile");
 
+ 
 function showForm(form) {
   form.classList.remove("hidden");
 }
@@ -125,6 +138,7 @@ signupBtn.onclick = () => {
   showForm(signupForm);
 };
 
+
 closeButtons.forEach(btn =>
   btn.addEventListener("click", () => {
     loginForm.reset();
@@ -139,7 +153,7 @@ signupForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const fullname = document.getElementById("fullname").value;
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("signupemail").value;
   const password = document.getElementById("signupPassword").value;
 
   const user = { fullname, email, password };
@@ -163,7 +177,7 @@ signupForm.addEventListener("submit", function (e) {
 loginForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const enteredEmail = document.getElementById("loginUsername").value;
+  const enteredEmail = document.getElementById("email").value;
   const enteredPassword = document.getElementById("loginPassword").value;
 
   const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -173,11 +187,14 @@ loginForm.addEventListener("submit", function (e) {
   );
 
   if (matchedUser) {
+    localStorage.setItem("currentUser", JSON.stringify(matchedUser));
     alert(`Login successful! Welcome, ${matchedUser.fullname}`);
     loginForm.reset();
     loginForm.classList.add("hidden");
+    updateAuthUI();
   } else {
     alert("Invalid email or password. Try again! 🙃");
+    updateAuthUI();
   }
 });
 
@@ -189,5 +206,40 @@ document.querySelectorAll(".bg-gray-300").forEach(btn => {
   });
 });
 
+logoutBtn.addEventListener("click", () => {
+  localStorage.removeItem("currentUser");
+  alert("You have been logged out.");
+    updateAuthUI();
+});
 
+profileicon.addEventListener("click", () => {
+  profileDropdown.classList.toggle("hidden");
+});
+
+document.addEventListener("click", (e) => {
+  if (!profileicon.contains(e.target) && !profileDropdown.contains(e.target)) {
+    profileDropdown.classList.add("hidden");
+  }
+});
+
+function updateAuthUI() {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const isLoggedIn = !!currentUser;
+
+  document.getElementById("loginBtn").classList.toggle("hidden", isLoggedIn);
+  document.getElementById("signupBtn").classList.toggle("hidden", isLoggedIn);
+  document.getElementById("logoutBtn").classList.toggle("hidden", !isLoggedIn);
+  profileicon.classList.toggle("hidden", !isLoggedIn);
+  if (isLoggedIn) {
+    const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.fullname)}&background=0D8ABC&color=fff`;
+    profileicon.src = avatarUrl;
+    userFullName.textContent = currentUser.fullname;
+    useremail.textContent = currentUser.email;
+    const avatarUrl2 = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.fullname)}&background=0D8ABC&color=fff`;
+   profile.src = avatarUrl2;
+  } else {
+    profileDropdown.classList.add("hidden");
+  }
+  }
+ updateAuthUI();
 

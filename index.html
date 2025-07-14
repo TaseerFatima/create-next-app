@@ -14,9 +14,9 @@
         <header class="p-2 sm:p-2 md:p-6 z-[50] sticky top-0 transition-shadow duration-300 bg-gradient-to-r 
                 from-[rgb(48_48_153/_90%)] via-[rgb(29_29_63/_95%)] to-[rgb(95_226_252/_90%)] rounded-2xl mb-6 shadow-lg">
       <div class="navbar flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
-        <div class="img flex gap-6">
-          <img src="img9.jpg"   class=" w-10 h-10 rounded-full object-cover" >
-          <h1 class="text-white text-2xl font-bold">TASEER FATIMA</h1>
+        <div class="img flex gap-4">
+          <img src="image.png"   class=" w-10 h-10 rounded-full object-cover" >
+          <h1 class="text-white text-2xl font-bold">Vintage Online</h1>
         </div>
 
         <div class="flex  flex-col sm:flex-row items-center gap-4 sm:gap-8">
@@ -45,7 +45,33 @@
                 </div>
          
         </div>
+         
+        <!-- <span id="welcomeText" class="ml-4 text-sm text-gray-700"></span> -->
+   
+        <div class="relative inline-block text-left">
+  <!-- Profile Avatar -->
 
+     <img src="" id="profileIcon" alt="Profile" class="w-10 h-10 rounded-full border border-white" />
+
+  <!-- Dropdown -->
+  <div
+    id="profileDropdown"
+    class="hidden absolute right-0 mt-2 w-48 bg-white border rounded items-center shadow-lg z-50"
+  >
+  <div class="bg-[rgb(95_226_252/_90%)] rounded flex flex-col justify-between items-center">
+    <img src="" id="profile" alt="Profileicon" class=" w-9 h-9 mt-8 rounded-full border border-white" />
+    <div class="px-20  text-sm text-gray-700" id="userFullName">User Name</div>
+    <div class="px-4 pb-8 text-sm text-gray-700" id="useremail">User email</div>
+  </div>
+  
+    <hr />
+
+   <button id="logoutBtn" class="bg-red-500 mx-auto text-white px-2 py-2 mt-6 mb-2  rounded hidden flex justify-between items-center">
+         Logout
+        </button>
+  </div>
+
+      
             </div>
             
       </div>
@@ -55,7 +81,7 @@
           <div id="loginForm" class="hidden fixed  inset-0 flex justify-center items-center z-[50] ">
               <form  class="p-8 bg-white flex flex-col rounded-xl mx-6  shadow-md space-y-4 ">
                 <h1 class="text-bold text-center text-black text-2xl">Log In</h1>
-                  <input id="loginUsername" placeholder="Username" class=" border rounded-xl p-2" required />
+                  <input id="email" placeholder="email" class=" border rounded-xl p-2" required />
                   <input id="loginPassword" type="password" placeholder="Password" class="rounded-xl border p-2" required />
                   <button type="submit" class="rounded-xl bg-blue-500 text-white p-2 ">Log In</button>
                <div class=" items-center flex flex-col bg-gray-300 text-black p-1.5  w-24 mx-auto rounded">  <button id="close" type="button" >close</button></div> 
@@ -64,7 +90,7 @@
             <div id="signupForm" class="hidden fixed inset-0 flex justify-center items-center z-[50]"><form class=" p-8  flex flex-col mx-6 bg-white rounded-xl shadow-md space-y-4">
                     <h1 class="text-bold text-center text-black text-2xl">Sign up</h1>
                   <input id="fullname" placeholder="Full Name" class="rounded-xl border p-2" required />
-                  <input id="email" placeholder="Email" class="rounded-xl border p-2" required />
+                  <input id="signupemail" placeholder="Email" class="rounded-xl border p-2" required />
                   <input id="signupPassword" type="password" placeholder="Password" class=" rounded-xl border p-2" required />
                   <button type="submit" class="rounded-xl bg-blue-500 text-white p-2 ">Sign Up</button>
                   <div class=" items-center flex flex-col bg-gray-300 text-black p-1.5  w-24 mx-auto rounded">  <button id="close" type="button" >close</button></div> 
